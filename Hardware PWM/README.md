@@ -1,18 +1,11 @@
-# Hardware PWM
-Now that you have done the software version of PWM, now it is time to start leveraging the other features of these Timer Modules.
+# How to Use the Code
 
-## Task
-You need to replicate the same behavior as in the software PWM, only using the Timer Modules ability to directly output to a GPIO Pin instead of managing them in software. One way to thing about what should happen is that unless your are doing some other things in your code, your system should initialize, set the Timer Modules, and then turn off the CPU.
+To use the code simply program it onto the correct microcontroller and then power the microcontoller.
 
-## Deliverables
-You will need to have two folders in this repository, one for each of the processors that you used for this part of the lab. Remember to replace this README with your own.
+# MSP430G2553
 
-### Hints
-Read up on the P1SEL registers as well as look at the Timer modules ability to multiplex.
+This code shows how PWM can be used to control the power that is output from a microprocessor. In this example the power is then used to determine the dimness or brightness of the output led. The dimness or brightness is controlled by the duty cycle which is controlled by the PWM. This code is relatively similiar to the software PWM. The main difference is that this code utilizes OUTMOD. This code also doesn't need to use a switch case for the states like the software PWM. Essentially the software code utilized timers to control the PWM while this code utilizes onboard hardware to control the PWM. The idea is still very similiar though, however instead of using a variable to control the value of the PWM, instead the CCRO and CCR1 registers were controlled directly. This means the duty cycle was being directly manipulated. The duty cycle was controlled by changng CCR1. The higher CCR1's value was the higher higher the duty cycle and the brighter the light. The brightness was controlled by the speed of the LED blinking similiar to how it was controlled in the software PWM.
 
-## Extra Work
-### Using ACLK
-Some of these microprocessors have a built in ACLK which is extremely slow compared to your up to 25MHz available on some of them. What is the overall impact on the system when using this clock? Can you actually use your PWM code with a clock that slow?
+# MSP430FR2311 
 
-### Ultra Low Power
-Using a combination of ACLK, Low Power Modes, and any other means you may deem necessary, optimize this PWM code to run at 50% duty cycle with a LED on the MSP430FR5994. In particular, time how long your code can run on the fully charged super capacitor. You do not need to worry about the button control in this case, and you will probably want to disable all the GPIO that you are not using (nudge, nudge, hint, hint).
+These codes are very similiar, the main difference is that the FR2311 uses TIMER_B, while the G2553 uses TIMER_A. The FR2311 also has the line "PM5CTL0 &= ~LOCKLPM5;" in it's code that enables the GPIO for this microprocessor. The final set of differences is mostly syntax anything that isn't clock specific in the MSP430 has to have it's clock specified for the FR2311. For example, CCR0 for the MSP430 has to be TB0CCR0 for the FR2311.
