@@ -1,6 +1,6 @@
 #include <msp430.h>
-
-int pwm = 500; // for PWM
+#include <stdint.h>
+uint16_t pwm = 500; // for PWM
 int state = 0; //for debounce
 void init(void);
 int main(void)
