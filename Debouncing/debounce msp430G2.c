@@ -4,8 +4,6 @@ int main(void)
 {
     WDTCTL = WDTPW | WDTHOLD;   // Stops watchdog timer
     init();
-    for(;;){
-    }
 }
 
 
